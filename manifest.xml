@@ -1,36 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:type="MessageReadCommandSurface">
-  <Id>abcd1234-5678-90ef-ghij-klmn12345678</Id>
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+           xsi:type="TaskPaneApp">
+
+  <!-- Identifiant unique de ton complément -->
+  <Id>12345678-abcd-1234-abcd-1234567890ab</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>Mon Complément Word</ProviderName>
   <DefaultLocale>fr-FR</DefaultLocale>
   <DisplayName DefaultValue="Ruban simplifié"/>
-  <Description DefaultValue="Un complément qui simplifie les commandes du ruban Word"/>
+  <Description DefaultValue="Complément Word pour simplifier les commandes du ruban"/>
+
+  <!-- Hôte : Word -->
   <Hosts>
     <Host Name="Document"/>
   </Hosts>
+
+  <!-- Paramètres par défaut -->
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://mon-site/taskpane.html"/>
+    <SourceLocation DefaultValue="https://pcochet74-dotcom.github.io/Complment.Word-Simplification-ruban/taskpane.html"/>
   </DefaultSettings>
-  <ExtensionPoint xsi:type="MessageReadCommandSurface">
-    <OfficeTab id="TabHome">
-      <Group id="SimplifiedGroup" label="Commandes rapides">
-        <Control xsi:type="Button" id="btnInsertText">
-          <Label resid="btnInsertTextLabel"/>
-          <Supertip>
-            <Title resid="btnInsertTextLabel"/>
-            <Description resid="btnInsertTextDesc"/>
-          </Supertip>
-          <Icon>
-            <bt:Image size="16" resid="icon16"/>
-          </Icon>
-          <Action xsi:type="ShowTaskpane">
-            <SourceLocation resid="taskpaneUrl"/>
-          </Action>
-        </Control>
-      </Group>
-    </OfficeTab>
-  </ExtensionPoint>
+
+  <!-- Ressources (texte, icônes, URL) -->
+  <Resources>
+    <bt:Images>
+      <bt:Image id="icon16" DefaultValue="https://pcochet74-dotcom.github.io/Complment.Word-Simplification-ruban/icon16.png"/>
+      <bt:Image id="icon32" DefaultValue="https://pcochet74-dotcom.github.io/Complment.Word-Simplification-ruban/icon32.png"/>
+      <bt:Image id="icon80" DefaultValue="https://pcochet74-dotcom.github.io/Complment.Word-Simplification-ruban/icon80.png"/>
+    </bt:Images>
+    <bt:Urls>
+      <bt:Url id="taskpaneUrl" DefaultValue="https://pcochet74-dotcom.github.io/Complment.Word-Simplification-ruban/taskpane.html"/>
+    </bt:Urls>
+    <bt:ShortStrings>
+      <bt:String id="btnOpenPaneLabel" DefaultValue="Ruban simplifié"/>
+    </bt:ShortStrings>
+    <bt:LongStrings>
+      <bt:String id="btnOpenPaneDesc" DefaultValue="Ouvre le panneau simplifié du ruban"/>
+    </bt:LongStrings>
+  </Resources>
+
+  <!-- Version override pour Word -->
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" Version="1.0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="SimplifiedGroup" label="Commandes rapides">
+                <Control xsi:type="Button" id="btnOpenPane">
+                  <Label resid="btnOpenPaneLabel"/>
+                  <Supertip>
+                    <Title resid="btnOpenPaneLabel"/>
+                    <Description resid="btnOpenPaneDesc"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16"/>
+                    <bt:Image size="32" resid="icon32"/>
+                    <bt:Image size="80" resid="icon80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="taskpaneUrl"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+  </VersionOverrides>
 </OfficeApp>
